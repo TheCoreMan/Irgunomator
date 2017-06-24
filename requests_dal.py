@@ -22,20 +22,25 @@ class Request(object):
 
     def append_message(self, message):
         self._messages.append(message)
+        db.set(self.id, pickle.dumps(self))
 
     def save(self):
         db.set(self.id, pickle.dumps(self))
-        db.lpush("open_requests", self.id)
-        db.lpush("requests", self.id)
+        db.sadd("open_requests", self.id)
+        db.sadd("requests", self.id)
 
 
 def get_request(request_id):
     return pickle.loads(db.get(request_id))
 
 
+def close_request(request_id):
+    db.srem("open_requests", request_id)
+
+
 def get_all_open_requests():
     open_requests = []
-    open_requests_ids = db.lrange("open_requests", 0, -1)
+    open_requests_ids = db.smembers("open_requests")
     if open_requests_ids:
         for open_request_id in open_requests_ids:
             open_requests.append(get_request(open_request_id))
