@@ -1,8 +1,8 @@
-import config
+import telegram
+
+import messages
 import requests_dal
 from handlers.unknown import unknown
-import messages
-import telegram
 
 
 def support(bot, update):
