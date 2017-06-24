@@ -13,7 +13,7 @@ def get_handlers():
     show_request = CommandHandler('show', handlers.unknown.unknown)
     close_request = CommandHandler('close', handlers.unknown.unknown)
     unknown_handler = MessageHandler([Filters.command], handlers.unknown.unknown)
-    new_request_handler = MessageHandler([handler_filters.NewRequestFilter], handlers.new_request.new_request)
+    new_request_handler = MessageHandler([handler_filters.new_request], handlers.new_request.new_request)
 
     # Message handler must be the last one
     support_msg_handler = MessageHandler([Filters.text], handlers.support.support_message)
