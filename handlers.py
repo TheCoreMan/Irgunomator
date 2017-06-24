@@ -57,10 +57,13 @@ def support_message(bot, update):
     if update.message.reply_to_message:
         req_id = update.message.reply_to_message.text.split('\n')[0]
         req = requests_dal.get_request(req_id)
+        req.append_message(update.message.text)
         bot.send_message(chat_id=req._creator,
                          text=update.message.text)
+        req.save()
     else:
         return unknown(bot, update)
+
 
 def unknown(bot, update):
     """
