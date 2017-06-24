@@ -1,5 +1,5 @@
 import config
-import requests_dal
+from DAL import requests_dal
 
 
 def new_request(bot, update):

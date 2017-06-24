@@ -1,7 +1,7 @@
 import telegram
 
 import messages
-import requests_dal
+from DAL import requests_dal
 from handlers.unknown import unknown
 
 

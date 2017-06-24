@@ -1,11 +1,6 @@
-import redis
 import pickle
-from config import config
 
-# Connecting to Redis db
-db = redis.StrictRedis(host=config['DB']['host'],
-                       port=config['DB']['port'],
-                       db=config['DB']['db'])
+from DAL.db import bot_db as db
 
 
 class Request(object):
