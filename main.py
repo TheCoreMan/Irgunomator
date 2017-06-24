@@ -1,5 +1,4 @@
-import gettext
-import pprint
+import pickle
 from functools import wraps
 
 import configparser
@@ -7,6 +6,8 @@ import redis
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, \
     RegexHandler, Filters
+
+from request import Request
 
 # Configuring bot
 config = configparser.ConfigParser()
@@ -99,6 +100,8 @@ def support_message(bot, update):
     else:
         # If it is a request from the user, the bot forwards the message
         # to the group
+        new_request = Request(update.message)
+        db.set(update.update_id, pickle.dumps(new_request))
         bot.forward_message(chat_id=int(config['DEFAULT']['support_chat_id']),
                             from_chat_id=update.message.chat_id,
                             message_id=update.message.message_id)
