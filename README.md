@@ -1,4 +1,4 @@
-# HelpDesk Bot
+# Irgunomator Bot
 > A Python Telegram Bot that works as a helpdesk software.
 
 When a client sends a support message to the bot, it forwards the message to you or your company's group and you can reply it. Replying the message makes the bot reply the client.
@@ -45,4 +45,6 @@ As long as you want your bot responding, keep this running. When you want to sto
 **PS:** Keep in mind that you will have to generate the locale `.mo` files.
 
 # Contribute
-Copyright (C) 2016 Júlia Rizza & licensed under MIT License
+Copied from 2016 Júlia Rizza 
+Copyright (C) 2017 Shay Nehmad & Tomer Yogev
+licensed under MIT License
