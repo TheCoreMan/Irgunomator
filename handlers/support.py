@@ -10,7 +10,7 @@ def support(bot, update, args):
         Sends the support message. Some kind of "How can I help you?".
     """
     bot.send_message(chat_id=update.message.chat_id,
-                     text=messages.NEW_SUPPORT_REQUEST,
+                     text=messages.ASK_FOR_NEW_REQUEST,
                      reply_markup=telegram.ForceReply())
 
 
@@ -23,7 +23,7 @@ def support_message(bot, update):
         the bot forwards the message to the support group.
     """
     if update.message.reply_to_message:
-        if update.message.reply_to_message.text == messages.NEW_SUPPORT_REQUEST:
+        if update.message.reply_to_message.text == messages.ASK_FOR_NEW_REQUEST:
             support_request = update.message.text
             request_id = update.update_id
 
