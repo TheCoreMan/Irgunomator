@@ -1,7 +1,7 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from config import config
 
 import handlers
+from config import config
 
 
 # Connecting to Telegram API
@@ -11,14 +11,14 @@ dispatcher = updater.dispatcher
 
 
 # creating handlers
-start_handler = CommandHandler('start', handlers.start)
-help_handler = CommandHandler('help', handlers.start)
-support_handler = CommandHandler('support', handlers.support, pass_args=True)
-list_requests = CommandHandler('list', handlers.show_requests)
-show_request = CommandHandler('show', handlers.show_single_request)
-close_request = CommandHandler('close', handlers.close_request)
-support_msg_handler = MessageHandler([Filters.text], handlers.support_message)
-unknown_handler = MessageHandler([Filters.command], handlers.unknown)
+start_handler = CommandHandler('start', handlers.start.start)
+help_handler = CommandHandler('help', handlers.start.start)
+support_handler = CommandHandler('support', handlers.support.support, pass_args=True)
+list_requests = CommandHandler('list', handlers.list_requests.list_requests)
+show_request = CommandHandler('show', handlers.unknown.unknown)
+close_request = CommandHandler('close', handlers.unknown.unknown)
+support_msg_handler = MessageHandler([Filters.text], handlers.support.support_message)
+unknown_handler = MessageHandler([Filters.command], handlers.unknown.unknown)
 
 # adding handlers
 dispatcher.add_handler(start_handler)
