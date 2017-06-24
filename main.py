@@ -23,6 +23,9 @@ unknown_handler = MessageHandler([Filters.command], handlers.unknown)
 # adding handlers
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(support_handler)
+dispatcher.add_handler(list_requests)
+dispatcher.add_handler(show_request)
+dispatcher.add_handler(close_request)
 dispatcher.add_handler(help_handler)
 dispatcher.add_handler(unknown_handler)
 
