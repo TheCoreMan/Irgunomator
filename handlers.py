@@ -37,13 +37,14 @@ def support(bot, update, args):
     new_request.append_message(support_request)
     new_request.save()
 
-    new_text = "{0}\n{1}".format(update.update_id, support_request)
+    support_chat_message_text = "{0}\n{1}".format(request_id, support_request)
     bot.send_message(
         chat_id=int(config.config['DEFAULT']['support_chat_id']),
-        text=new_text)
+        text=support_chat_message_text)
 
+    user_message_text = "Received new request:\n{0}".format(support_request)
     bot.send_message(chat_id=update.message.chat_id,
-                     text="Give me some time to think. Soon I will return to you with an answer.")
+                     text=user_message_text)
 
 
 def support_message(bot, update):
