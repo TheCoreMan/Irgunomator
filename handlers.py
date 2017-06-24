@@ -76,13 +76,20 @@ def unknown(bot, update):
 
 
 def show_requests(bot, update):
+    all_open_requests = requests_dal.get_all_open_requests()
     if update.message.chat_id == config.support_chat_id:
-        all_open_requests = requests_dal.get_all_open_requests()
         bot.send_message(
             chat_id=config.support_chat_id,
-            text="Showing all open requests. There are {0} open requests".format(len(all_open_requests)))
+            text="There are {0} open requests".format(len(all_open_requests)))
         for open_request in all_open_requests:
             bot.send_message(chat_id=config.support_chat_id, text=repr(open_request))
+    else:
+        my_open_requests = filter(lambda x: x._creator == update.message.chat.id, all_open_requests)
+        bot.send_message(
+            chat_id=update.message.chat_id,
+            text="There are {0} open requests".format(len(my_open_requests)))
+        for open_request in my_open_requests:
+            bot.send_message(chat_id=update.message.chat_id, text=repr(open_request))
 
 
 def close_request(bot, update):
