@@ -25,13 +25,15 @@ def get_updater():
     updater = Updater(token=config['DEFAULT']['token'])
     dispatcher = updater.dispatcher
 
-    bot_handlers = get_handlers()
-
-    # populate dispatcher
-    for bot_handler in bot_handlers:
-        dispatcher.add_handler(bot_handler)
+    populate_dispatcher(dispatcher)
 
     return updater
+
+
+def populate_dispatcher(dispatcher):
+    bot_handlers = get_handlers()
+    for bot_handler in bot_handlers:
+        dispatcher.add_handler(bot_handler)
 
 
 def main():
