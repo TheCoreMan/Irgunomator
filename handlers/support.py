@@ -31,7 +31,7 @@ def support_message(bot, update):
             new_request.append_message(support_request)
             new_request.save()
 
-            support_chat_message_text = "{0}\n{1}".format(request_id, support_request)
+            support_chat_message_text = "{0}\n{1}\nPlease reply to this request.".format(request_id, support_request)
             bot.send_message(
                 chat_id=int(config.config['DEFAULT']['support_chat_id']),
                 text=support_chat_message_text)
@@ -44,7 +44,7 @@ def support_message(bot, update):
         req_id = update.message.reply_to_message.text.split('\n')[0]
         req = requests_dal.get_request(req_id)
         req.append_message(update.message.text)
-        bot.send_message(chat_id=req._creator,
+        bot.send_message(chat_id=req.creator,
                          text=update.message.text)
         req.save()
     else:

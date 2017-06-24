@@ -10,7 +10,7 @@ def get_handlers():
     support_handler = CommandHandler('support', handlers.support.support, pass_args=True)
     list_requests = CommandHandler('list', handlers.list_requests.list_requests)
     show_request = CommandHandler('show', handlers.unknown.unknown)
-    close_request = CommandHandler('close', handlers.unknown.unknown)
+    close_request = CommandHandler('close', handlers.close.close)
     unknown_handler = MessageHandler([Filters.command], handlers.unknown.unknown)
     # Message handler must be the last one
     support_msg_handler = MessageHandler([Filters.text], handlers.support.support_message)
