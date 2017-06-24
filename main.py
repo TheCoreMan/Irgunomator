@@ -91,20 +91,26 @@ def support_message(bot, update):
         sending the message content. If the message is a request from the user,
         the bot forwards the message to the support group.
     """
-    if update.message.reply_to_message and \
-       update.message.reply_to_message.forward_from:
+    if update.message.reply_to_message:
         # If it is a reply to the user, the bot replies the user
-        bot.send_message(chat_id=update.message.reply_to_message
-                         .forward_from.id,
+        req_id = update.message.reply_to_message.text.split('\n')[0]
+        req = pickle.loads(db.get(req_id))
+        bot.send_message(chat_id=req._creator,
                          text=update.message.text)
     else:
         # If it is a request from the user, the bot forwards the message
         # to the group
-        new_request = Request(update.message)
+
+        new_request = Request(update.message, update.update_id)
         db.set(update.update_id, pickle.dumps(new_request))
-        bot.forward_message(chat_id=int(config['DEFAULT']['support_chat_id']),
-                            from_chat_id=update.message.chat_id,
-                            message_id=update.message.message_id)
+        # bot.forward_message(chat_id=int(config['DEFAULT']['support_chat_id']),
+        #                    from_chat_id=update.message.chat_id,
+        #                    message_id=update.message.message_id)
+
+        new_text = "{0}\n{1}".format(update.update_id, update.message.text)
+        bot.send_message(
+            chat_id=int(config['DEFAULT']['support_chat_id']),
+            text=new_text)
         bot.send_message(chat_id=update.message.chat_id,
                          text=_("Give me some time to think. Soon I will return to you with an answer."))
 
