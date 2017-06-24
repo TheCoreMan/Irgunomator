@@ -13,7 +13,7 @@ dispatcher = updater.dispatcher
 # creating handlers
 start_handler = CommandHandler('start', handlers.start)
 help_handler = CommandHandler('help', handlers.start)
-support_handler = CommandHandler('support', handlers.support)
+support_handler = CommandHandler('support', handlers.support, pass_args=True)
 list_requests = CommandHandler('list', handlers.show_requests)
 show_request = CommandHandler('show', handlers.show_single_request)
 close_request = CommandHandler('close', handlers.close_request)
@@ -24,6 +24,8 @@ unknown_handler = MessageHandler([Filters.command], handlers.unknown)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(support_handler)
 dispatcher.add_handler(list_requests)
+dispatcher.add_handler(show_request)
+dispatcher.add_handler(close_request)
 dispatcher.add_handler(help_handler)
 dispatcher.add_handler(unknown_handler)
 

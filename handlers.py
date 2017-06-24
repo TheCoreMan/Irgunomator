@@ -26,12 +26,25 @@ def start(bot, update):
                      reply_markup=reply_kb_markup)
 
 
-def support(bot, update):
+def support(bot, update, args):
     """
         Sends the support message. Some kind of "How can I help you?".
     """
+    support_request = ' '.join(args)
+    request_id = update.update_id
+
+    new_request = requests_dal.Request(update.message, request_id)
+    new_request.append_message(support_request)
+    new_request.save()
+
+    support_chat_message_text = "{0}\n{1}".format(request_id, support_request)
+    bot.send_message(
+        chat_id=int(config.config['DEFAULT']['support_chat_id']),
+        text=support_chat_message_text)
+
+    user_message_text = "Received new request:\n{0}".format(support_request)
     bot.send_message(chat_id=update.message.chat_id,
-                     text="Please, tell me what you need support with :)")
+                     text=user_message_text)
 
 
 def support_message(bot, update):
@@ -43,22 +56,14 @@ def support_message(bot, update):
         the bot forwards the message to the support group.
     """
     if update.message.reply_to_message:
-        # If it is a reply to the user, the bot replies the user
         req_id = update.message.reply_to_message.text.split('\n')[0]
         req = requests_dal.get_request(req_id)
+        req.append_message(update.message.text)
         bot.send_message(chat_id=req._creator,
                          text=update.message.text)
+        req.save()
     else:
-        # If it is a request from the user, the bot forwards the message
-        # to the group
-        new_request = requests_dal.Request(update.message, update.update_id)
-        new_request.save()
-        new_text = "{0}\n{1}".format(update.update_id, update.message.text)
-        bot.send_message(
-            chat_id=config.support_chat_id,
-            text=new_text)
-        bot.send_message(chat_id=update.message.chat_id,
-                         text="Give me some time to think. Soon I will return to you with an answer.")
+        return unknown(bot, update)
 
 
 def unknown(bot, update):

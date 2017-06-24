@@ -13,12 +13,15 @@ class Request(object):
         self.id = request_id
         self._creation_time = message.date
         self._creator = message.chat.id
-        self._messages = [message.text]
+        self._messages = []
 
     def __repr__(self):
         return "{0}\n{1}".format(
             self.id,
             self._messages[0])
+
+    def append_message(self, message):
+        self._messages.append(message)
 
     def save(self):
         db.set(self.id, pickle.dumps(self))
