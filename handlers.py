@@ -1,6 +1,6 @@
 import requests_dal
 import telegram
-from config import config
+import config
 
 
 def start(bot, update):
@@ -55,7 +55,7 @@ def support_message(bot, update):
         new_request.save()
         new_text = "{0}\n{1}".format(update.update_id, update.message.text)
         bot.send_message(
-            chat_id=int(config['DEFAULT']['support_chat_id']),
+            chat_id=config.support_chat_id,
             text=new_text)
         bot.send_message(chat_id=update.message.chat_id,
                          text="Give me some time to think. Soon I will return to you with an answer.")
@@ -71,7 +71,13 @@ def unknown(bot, update):
 
 
 def show_requests(bot, update):
-    return unknown(bot, update)
+    if update.message.chat_id == config.support_chat_id:
+        all_open_requests = requests_dal.get_all_open_requests()
+        bot.send_message(
+            chat_id=config.support_chat_id,
+            text="Showing all open requests. There are {0} open requests".format(len(all_open_requests)))
+        for open_request in all_open_requests:
+            bot.send_message(chat_id=config.support_chat_id, text=repr(open_request))
 
 
 def close_request(bot, update):

@@ -14,11 +14,26 @@ class Request(object):
         self._creation_time = message.date
         self._creator = message.chat.id
         self._messages = [message.text]
-        self._is_open = True
+
+    def __repr__(self):
+        return "{0}\n{1}".format(
+            self.id,
+            self._messages[0])
 
     def save(self):
         db.set(self.id, pickle.dumps(self))
+        db.lpush("open_requests", self.id)
+        db.lpush("requests", self.id)
 
 
 def get_request(request_id):
     return pickle.loads(db.get(request_id))
+
+
+def get_all_open_requests():
+    open_requests = []
+    open_requests_ids = db.lrange("open_requests", 0, -1)
+    if open_requests_ids:
+        for open_request_id in open_requests_ids:
+            open_requests.append(get_request(open_request_id))
+    return open_requests
