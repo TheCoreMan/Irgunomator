@@ -39,6 +39,7 @@ def support_message(bot, update):
             user_message_text = "Received new request:\n{0}".format(support_request)
             bot.send_message(chat_id=update.message.chat_id,
                              text=user_message_text)
+            return
 
         req_id = update.message.reply_to_message.text.split('\n')[0]
         req = requests_dal.get_request(req_id)
