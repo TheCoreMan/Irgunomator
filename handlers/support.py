@@ -5,7 +5,7 @@ import messages
 import telegram
 
 
-def support(bot, update, args):
+def support(bot, update):
     """
         Sends the support message. Some kind of "How can I help you?".
     """
