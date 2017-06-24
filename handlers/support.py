@@ -23,7 +23,7 @@ def support_message(bot, update):
         the bot forwards the message to the support group.
     """
     if update.message.reply_to_message:
-        req_id = update.message.reply_to_message.text.split('\n')[0]
+        req_id = update.message.reply_to_message.text.split(u'\n')[0]
         req = requests_dal.get_request(req_id)
         req.append_message(update.message.text)
         bot.send_message(chat_id=req.creator,

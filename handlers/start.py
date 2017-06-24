@@ -1,3 +1,4 @@
+# coding=utf-8
 import telegram
 
 
@@ -8,12 +9,15 @@ def start(bot, update):
     me = bot.get_me()
 
     # Welcome message
-    msg = "Hello!\n"
-    msg += "I'm {0} and I came here to help you.\n".format(me.first_name)
-    msg += "What would you like to do?\n\n"
-    msg += "/support - Opens a new support ticket\n"
-    msg += "/list - Lists all open requests\n"
-    msg += "/help - Shows this help menu :)\n"
+    msg = u"""שלום!
+    אני הארגונומטור ובאתי לעזור לך. 
+    מה תרצה לעשות?
+    
+    """
+
+    msg += u"/support - פותח בקשה חדשה לעזרה.\n"
+    msg += u"/list - רושם את כל הבקשות הפתוחות.\n"
+    msg += u"/help - מראה את התפריט הזה :)\n"
 
     # Commands menu
     main_menu_keyboard = [

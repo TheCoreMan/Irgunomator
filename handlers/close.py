@@ -9,7 +9,5 @@ def close(bot, update):
     requests_dal.close_request(request_id)
 
     close_message_text = u"The following Request was closed ✅:\n{0}".format(repr(request))
-    bot.send_message(chat_id=request.creator,
-                     text=close_message_text)
-    bot.send_message(chat_id=config.support_chat_id,
-                     text=close_message_text)
+    bot.send_message(chat_id=request.creator, text=close_message_text)
+    bot.send_message(chat_id=config.support_chat_id, text=close_message_text)

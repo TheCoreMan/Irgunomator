@@ -16,9 +16,9 @@ class Request(object):
         self._messages = []
 
     def __repr__(self):
-        return "{0}\n{1}".format(
-            self.id,
-            self._messages[0])
+        return u"{0}\n{1}".format(
+            unicode(self.id),
+            unicode(self._messages[0]))
 
     def append_message(self, message):
         self._messages.append(message)
