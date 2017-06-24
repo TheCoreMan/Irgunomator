@@ -13,8 +13,11 @@ class Request(object):
         self.id = request_id
         self._creation_time = message.date
         self._creator = message.chat.id
-        self._messages = [message.text]
+        self._messages = []
         self._is_open = True
+
+    def append_message(self, message):
+        self._messages.append(message)
 
     def save(self):
         db.set(self.id, pickle.dumps(self))
