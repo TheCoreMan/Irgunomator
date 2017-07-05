@@ -8,6 +8,6 @@ def close(bot, update):
     request = requests_dal.get_request(request_id)
     requests_dal.close_request(request_id)
 
-    close_message_text = u"The following Request was closed ✅:\n{0}".format(repr(request))
+    close_message_text = u"הבקשה הבאה נסגרה ✅:\n{0}\nנפתחה ב {1}".format(request.to_unicode(), request.creation_time)
     bot.send_message(chat_id=request.creator, text=close_message_text)
     bot.send_message(chat_id=config.support_chat_id, text=close_message_text)

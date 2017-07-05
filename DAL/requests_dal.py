@@ -6,17 +6,15 @@ from DAL.db import bot_db as db
 class Request(object):
     def __init__(self, message, request_id):
         self.id = request_id
-        self._creation_time = message.date
+        self.creation_time = message.date
         self.creator = message.chat.id
-        self._messages = []
+        self.messages = []
 
-    def __repr__(self):
-        return u"{0}\n{1}".format(
-            unicode(self.id),
-            unicode(self._messages[0]))
+    def to_unicode(self):
+        return u"{0}\n{1}".format(self.id, self.messages[0])
 
     def append_message(self, message):
-        self._messages.append(message)
+        self.messages.append(message)  # .encode('utf-8')
         db.set(self.id, pickle.dumps(self))
 
     def save(self):

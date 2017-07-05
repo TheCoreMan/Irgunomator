@@ -18,3 +18,5 @@ def flush_db_reply(bot, update):
         bot.send_message(chat_id=config.support_chat_id, text="FLUSHING DB...")
         db.flushdb()
         bot.send_message(chat_id=config.support_chat_id, text="DB FLUSHED.")
+    else:
+        bot.send_message(chat_id=config.support_chat_id, text="ABORTING")
