@@ -1,6 +1,6 @@
 # coding=utf-8
 import config
-import requests_dal
+from DAL import requests_dal
 
 
 def close(bot, update):

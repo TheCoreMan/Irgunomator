@@ -1,6 +1,8 @@
-import config
-import requests_dal
 import inflect
+
+import config
+from DAL import requests_dal
+
 inflection = inflect.engine()
 
 

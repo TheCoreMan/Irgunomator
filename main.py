@@ -12,14 +12,17 @@ def get_handlers():
     list_requests = CommandHandler('list', handlers.list_requests.list_requests)
     show_request = CommandHandler('show', handlers.unknown.unknown)
     close_request = CommandHandler('close', handlers.close.close)
+    flush_db_handler = CommandHandler('flushdb', handlers.flush_db.flush_db)
     unknown_handler = MessageHandler([Filters.command], handlers.unknown.unknown)
     new_request_handler = MessageHandler([handler_filters.new_request], handlers.new_request.new_request)
+    flush_db_verification_handler = MessageHandler([handler_filters.flush_db], handlers.flush_db.flush_db_reply)
 
     # Message handler must be the last one
     support_msg_handler = MessageHandler([Filters.text], handlers.support.support_message)
 
     return [start_handler, help_handler, support_handler, list_requests, show_request, close_request,
-            unknown_handler, new_request_handler, support_msg_handler]
+            unknown_handler, new_request_handler, flush_db_handler, flush_db_verification_handler,
+            support_msg_handler]
 
 
 def get_updater():
