@@ -19,6 +19,7 @@ def get_handlers():
     list_requests = CommandHandler('list', handlers.list_requests.list_requests)
     close_request = CommandHandler('close', handlers.close.close)
     flush_db_handler = CommandHandler('flushdb', handlers.flush_db.flush_db)
+    leaderboards_handler = CommandHandler('leaderboards', handlers.leaderboards.show_leaderboard)
     unknown_handler = MessageHandler([Filters.command], handlers.unknown.unknown)
     new_request_handler = MessageHandler([handler_filters.new_request], handlers.new_request.new_request)
     flush_db_verification_handler = MessageHandler([handler_filters.flush_db], handlers.flush_db.flush_db_reply)
@@ -34,6 +35,7 @@ def get_handlers():
         close_request,
         new_request_handler,
         flush_db_handler,
+        leaderboards_handler,
         unknown_handler,
         flush_db_verification_handler,
         support_msg_handler]  # NOTE order is important, msg_handler must be last

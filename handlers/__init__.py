@@ -5,4 +5,5 @@ from . import \
     new_request, \
     close, \
     flush_db, \
+    leaderboards, \
     unknown

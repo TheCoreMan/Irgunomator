@@ -15,6 +15,7 @@ def start(bot, update):
 
     💬 /support 
     📓 /list 
+    🏆 /leaderboards
     ❓ /help 
     
     הסבר על כל אחת מן הפעולות שאני יודע לעשות:
@@ -25,6 +26,7 @@ def start(bot, update):
         [
             [u"/support", u"פותח בקשה חדשה לעזרה."],
             [u"/list", u"רושם את כל הבקשות הפתוחות."],
+            [u"/leaderboards", u"מראה מי מוביל בפתיחת הודעות."],
             [u"/help", u"מראה את ההודעה הזו."]
         ], tablefmt="simple")
     msg += u"```"
@@ -32,6 +34,7 @@ def start(bot, update):
     main_menu_keyboard = [
         [telegram.KeyboardButton('/support')],
         [telegram.KeyboardButton('/list')],
+        [telegram.KeyboardButton('/leaderboards')],
         [telegram.KeyboardButton('/help')]
     ]
     reply_kb_markup = telegram.ReplyKeyboardMarkup(
