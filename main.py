@@ -19,9 +19,17 @@ def get_handlers():
     # Message handler must be the last one
     support_msg_handler = MessageHandler([Filters.text], handlers.support.support_message)
 
-    return [start_handler, help_handler, support_handler, list_requests, close_request,
-            new_request_handler, flush_db_handler, unknown_handler, flush_db_verification_handler,
-            support_msg_handler]
+    return [
+        start_handler,
+        help_handler,
+        support_handler,
+        list_requests,
+        close_request,
+        new_request_handler,
+        flush_db_handler,
+        unknown_handler,
+        flush_db_verification_handler,
+        support_msg_handler]  # NOTE order is important, msg_handler must be last
 
 
 def get_updater():

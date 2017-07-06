@@ -1,4 +1,7 @@
+# coding=utf-8
 import pickle
+
+import humanize
 
 from DAL.db import bot_db as db
 
@@ -11,7 +14,7 @@ class Request(object):
         self.messages = []
 
     def to_unicode(self):
-        return u"{0}\n{1}".format(self.id, self.messages[0])
+        return u"{0}\n{1}\nזמן פתיחה: {2}".format(self.id, self.messages[0], humanize.naturaltime(self.creation_time))
 
     def append_message(self, message):
         self.messages.append(message)  # .encode('utf-8')

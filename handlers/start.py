@@ -6,11 +6,10 @@ def start(bot, update):
     """
         Shows an welcome message and help info about the available commands.
     """
-    me = bot.get_me()
-
     # Welcome message
     msg = u"""שלום!
-    אני הארגונומטור ובאתי לעזור לך. 
+    אני הארגונומטור ובאתי לעזור לך.
+     💪
     מה תרצה לעשות?
     
     """

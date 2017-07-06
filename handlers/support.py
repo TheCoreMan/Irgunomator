@@ -1,3 +1,4 @@
+# coding=utf-8
 import telegram
 
 import messages
@@ -26,8 +27,15 @@ def support_message(bot, update):
         req_id = update.message.reply_to_message.text.split(u'\n')[0]
         req = requests_dal.get_request(req_id)
         req.append_message(update.message.text)
-        bot.send_message(chat_id=req.creator,
-                         text=update.message.text)
+        support_reply_text = u"""קיבלתי תשובה על בקשה!
+        הבקשה המקורית:
+{0}
+התשובה:
+{1}
+התשובה נשלחה ב {2}""".format(req.to_unicode(), update.message.text, update.message.date)
+        bot.send_message(
+            chat_id=req.creator,
+            text=support_reply_text)
         req.save()
     else:
         return unknown(bot, update)
