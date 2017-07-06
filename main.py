@@ -1,8 +1,15 @@
+import logging
+
+import sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-import handlers
 import handler_filters
+import handlers
 from config import config
+
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+log = logging.getLogger(__name__)
 
 
 def get_handlers():
@@ -35,6 +42,7 @@ def get_handlers():
 def get_updater():
     # Connecting to Telegram API
     # Updater retrieves information and dispatcher connects commands
+    log.debug("Creating updater with default token...")
     updater = Updater(token=config['DEFAULT']['token'])
     dispatcher = updater.dispatcher
 
@@ -51,7 +59,9 @@ def populate_dispatcher(dispatcher):
 
 def main():
     updater = get_updater()
+    log.debug("Stopping polling...")
     updater.stop()
+    log.info("Started updater polling.")
     updater.start_polling()
 
 
