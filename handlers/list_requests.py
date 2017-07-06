@@ -21,14 +21,19 @@ def list_requests(bot, update):
             text=generate_open_requests_text(len(all_open_requests)))
         for open_request in all_open_requests:
             try:
-                message_text = open_request.to_unicode()
-                bot.send_message(chat_id=config.support_chat_id, text=message_text)
+                bot.send_message(
+                    chat_id=config.support_chat_id,
+                    text=open_request.to_unicode(),
+                    parse_mode="Markdown")
             except Exception as e:
                 bot.send_message(chat_id=config.support_chat_id, text=e.message)
     else:
-        my_open_requests = filter(lambda x: x.creator == update.message.chat.id, all_open_requests)
+        my_open_requests = filter(lambda x: x.chat_id == update.message.chat.id, all_open_requests)
         bot.send_message(
             chat_id=update.message.chat_id,
             text=generate_open_requests_text(len(my_open_requests)))
         for open_request in my_open_requests:
-            bot.send_message(chat_id=update.message.chat_id, text=open_request.to_unicode())
+            bot.send_message(
+                chat_id=update.message.chat_id,
+                text=open_request.to_unicode(),
+                parse_mode="Markdown")

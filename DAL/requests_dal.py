@@ -10,11 +10,22 @@ class Request(object):
     def __init__(self, message, request_id):
         self.id = request_id
         self.creation_time = message.date
-        self.creator = message.chat.id
+        self.chat_id = message.chat_id
+        self.creator_id = message.from_user.id
+        self.creator_name = message.from_user.name
+        self.creator_username = message.from_user.username
         self.messages = []
 
     def to_unicode(self):
-        return u"{0}\n{1}\nזמן פתיחה: {2}".format(self.id, self.messages[0], humanize.naturaltime(self.creation_time))
+        return u"""{0}
+       הבקשה {1}
+        נוצר על ידי {2}
+_זמן פתיחה_ {3}
+""".format(
+            self.id,
+            self.messages[0],
+            self.creator_name,
+            humanize.naturaltime(self.creation_time))
 
     def append_message(self, message):
         self.messages.append(message)  # .encode('utf-8')

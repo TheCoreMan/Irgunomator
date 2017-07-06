@@ -34,8 +34,9 @@ def support_message(bot, update):
 {1}
 התשובה נשלחה ב {2}""".format(req.to_unicode(), update.message.text, update.message.date)
         bot.send_message(
-            chat_id=req.creator,
-            text=support_reply_text)
+            chat_id=req.chat_id,
+            text=support_reply_text,
+            parse_mode="Markdown")
         req.save()
     else:
         return unknown(bot, update)

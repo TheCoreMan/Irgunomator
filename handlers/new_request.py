@@ -12,8 +12,9 @@ def new_request(bot, update):
     request.save()
 
     bot.send_message(
-        chat_id=int(config.config['DEFAULT']['support_chat_id']),
-        text=request.to_unicode())
+        chat_id=config.support_chat_id,
+        text=request.to_unicode(),
+        parse_mode="Markdown")
 
     user_message_text = messages.NEW_REQUEST_CREATED.format(support_request)
     bot.send_message(chat_id=update.message.chat_id,
