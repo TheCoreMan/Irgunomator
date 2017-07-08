@@ -14,7 +14,7 @@ def get_leaders_string(all_users_counter):
 
     msg = u""
     for i, user in enumerate(all_users_counter.most_common(3)):
-        msg += u"{0} place: {1} with {2} requests".format(engine.ordinal(i+1), user[0], user[1])
+        msg += u"{0} place: {1} with {2} requests\n".format(engine.ordinal(i+1), user[0], user[1])
 
     return msg
 
