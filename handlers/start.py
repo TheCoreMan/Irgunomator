@@ -5,7 +5,7 @@ from tabulate import tabulate
 
 def start(bot, update):
     """
-        Shows an welcome message and help info about the available commands.
+        Shows a welcome message and help info about the available commands.
     """
     # Welcome message
 
